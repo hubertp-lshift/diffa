@@ -17,7 +17,7 @@
 package net.lshift.diffa.kernel.events
 
 import java.io.Serializable
-import reflect.BeanProperty
+import scala.beans.BeanProperty
 import net.lshift.diffa.kernel.config.{PairRef, DiffaPairRef}
 
 /**

@@ -23,7 +23,9 @@ import net.lshift.diffa.kernel.participants.{DownstreamParticipant, UpstreamPart
 import org.joda.time.{DateTimeZone, DateTime}
 import net.lshift.diffa.kernel.util.AlertCodes._
 import akka.actor._
-import akka.dispatch.{Await, ExecutionContext, Future}
+import scala.concurrent.{Await, Future, ExecutionContext}
+import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext.Implicits.global
 import akka.pattern.{ask, AskTimeoutException}
 
 import collection.mutable.Queue
@@ -34,8 +36,6 @@ import org.slf4j.{LoggerFactory, Logger}
 import net.lshift.diffa.kernel.config.{DomainConfigStore, Endpoint}
 import net.lshift.diffa.kernel.util.{EndpointSide, DownstreamEndpoint, UpstreamEndpoint}
 import net.lshift.diffa.adapter.scanning.{ScanAggregation, ScanRequest, ScanResultEntry, ScanConstraint}
-import akka.util.Timeout
-import akka.util.duration._
 import net.lshift.diffa.kernel.frontend.DomainPairDef
 import net.lshift.diffa.kernel.scanning.{ScanStatement, ScanActivityStore}
 
@@ -420,7 +420,6 @@ case class PairActor(pair:DomainPairDef,
 
     val createdScan = OutstandingScan(new DateTime(DateTimeZone.UTC), initiatingUser)
     implicit val system = actorSystem
-    implicit val executionContext = ExecutionContext.defaultExecutionContext
 
 
     logger.info(formatAlertCode(pairRef, SCAN_STARTED_BENCHMARK))

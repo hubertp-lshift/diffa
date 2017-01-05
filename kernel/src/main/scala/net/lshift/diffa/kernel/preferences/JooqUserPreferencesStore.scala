@@ -21,7 +21,7 @@ import net.lshift.diffa.kernel.config.PairRef
 import net.lshift.diffa.schema.tables.UserItemVisibility.USER_ITEM_VISIBILITY
 import net.lshift.diffa.kernel.lifecycle.{DomainLifecycleAware, PairLifecycleAware}
 import net.lshift.diffa.kernel.util.cache.{KeyPredicate, CacheProvider}
-import reflect.BeanProperty
+import scala.beans.BeanProperty
 import java.lang.{Long => LONG}
 
 class JooqUserPreferencesStore(db:DatabaseFacade, cacheProvider:CacheProvider)

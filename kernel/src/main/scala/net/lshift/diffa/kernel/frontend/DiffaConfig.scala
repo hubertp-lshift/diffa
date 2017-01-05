@@ -16,7 +16,7 @@
 package net.lshift.diffa.kernel.frontend
 
 import net.lshift.diffa.kernel.config._
-import reflect.BeanProperty
+import scala.beans.BeanProperty
 import org.quartz.CronExpression
 import java.util.HashMap
 import scala.collection.JavaConversions._

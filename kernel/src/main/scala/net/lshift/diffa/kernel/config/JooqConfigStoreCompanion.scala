@@ -51,7 +51,6 @@ import net.lshift.diffa.schema.tables.SpacePaths._
 import net.lshift.diffa.kernel.frontend.DomainPairDef
 import net.lshift.diffa.kernel.frontend.EndpointDef
 import net.lshift.diffa.kernel.frontend.RepairActionDef
-import scala.Some
 import net.lshift.diffa.kernel.frontend.EndpointViewDef
 import net.lshift.diffa.kernel.frontend.PairReportDef
 import net.lshift.diffa.kernel.frontend.EscalationDef
@@ -751,7 +750,7 @@ object JooqConfigStoreCompanion {
 
   def deleteCategories(t:Factory, space:Long, endpoint:String) = {
     // The order of these tables is important. Incorrect ordering will result in foreign key constraint violation.
-    val categoryTables = Seq(
+    val categoryTables: Seq[org.jooq.Table[_]] = Seq(
       PREFIX_CATEGORY_VIEWS,
       PREFIX_CATEGORIES,
       SET_CATEGORY_VIEWS,

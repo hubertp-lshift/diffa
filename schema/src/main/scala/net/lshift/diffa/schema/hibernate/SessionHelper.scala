@@ -63,13 +63,11 @@ class SessionHelper(val sessionFactory: SessionFactory) {
       case ex: Exception => ex.getCause match {
         case recov: java.sql.SQLRecoverableException =>
           log.warn("Retrying failed operation: %s".format(recov.getMessage))
-          try {
-            val session = sessionFactory.openSession
-            val result = dbCommands(session)
-            session.flush
+          val session = sessionFactory.openSession
+          val result = dbCommands(session)
+          session.flush
 
-            result
-          }
+          result
         case _ =>
           throw ex
       }
