@@ -15,7 +15,8 @@
 
   <properties>
     <buildVersion>${project.version}</buildVersion>    <!-- Can be overridden via -D -->
-    <scalatest.version>1.8</scalatest.version>
+    <scalatest.version>2.2.6</scalatest.version>
+    <scala.prefix.version>2.11</scala.prefix.version>
     <curator.version>1.2.3</curator.version>
     <junit.version>4.10</junit.version>
     <zookeeper.version>3.4.6</zookeeper.version>
@@ -69,7 +70,7 @@
     </dependency>
     <dependency>
       <groupId>org.scalatest</groupId>
-      <artifactId>scalatest_2.9.2</artifactId>
+      <artifactId>scalatest_${scala.prefix.version}</artifactId>
       <version>${scalatest.version}</version>
       <scope>test</scope>
     </dependency>
