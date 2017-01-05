@@ -65,7 +65,7 @@ class QuartzScanScheduler(systemConfig:SystemConfigStore,
           log.info(formatAlertCode(pair, BASIC_SCHEDULED_SCAN_STARTED) + " starting basic scheduled scan")
         } catch {
             // Catch, log, and drop exceptions to prevent the scheduler trying to do any misfire handling
-          case ex =>
+          case ex: Throwable =>
             log.error(formatAlertCode(pair, BASIC_SCHEDULED_SCAN_FAILED) + " failed to start basic scheduled scan")
         }
       } else {
@@ -74,7 +74,7 @@ class QuartzScanScheduler(systemConfig:SystemConfigStore,
           log.info(formatAlertCode(pair, VIEW_SCHEDULED_SCAN_STARTED) + " starting scheduled scan for view " + view)
         } catch {
             // Catch, log, and drop exceptions to prevent the scheduler trying to do any misfire handling
-          case ex =>
+          case ex: Throwable =>
             log.error(formatAlertCode(pair, VIEW_SCHEDULED_SCAN_FAILED) + " failed to start scheduled scan for view " + view)
         }
       }

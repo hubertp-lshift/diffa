@@ -103,14 +103,13 @@ abstract class BaseScanningVersionPolicy(val stores:VersionCorrelationStoreFacto
     }
   }
 
-  def benchmark[T](pairRef:PairRef, label:String, f:() => T) {
+  def benchmark[T](pairRef:PairRef, label:String, f:() => T): Unit = {
     val start = new DateTime()
     val result = f()
     val stop = new DateTime()
     val interval = new Interval(start,stop)
     val period = interval.toPeriod
     logger.debug("[%s]: Benchmarking operation %s: %s -> %s".format(pairRef.identifier, label, period , interval ) )
-    result
   }
 
   def scanUpstream(scanId:Long, pairRef:PairRef, upstream:Endpoint, view:Option[String], writer: LimitedVersionCorrelationWriter, participant:UpstreamParticipant,

@@ -576,10 +576,10 @@ class JooqSystemConfigStore(jooq:JooqDatabaseFacade,
         space
       }
       catch {
-        case u:DataAccessException if u.getCause.isInstanceOf[SQLIntegrityConstraintViolationException] =>
+        case u: DataAccessException if u.getCause.isInstanceOf[SQLIntegrityConstraintViolationException] =>
           logger.warn("Integrity constraint when trying to create space for path " + name)
           throw u
-        case x => throw x
+        case x: Throwable => throw x
       }
 
     }

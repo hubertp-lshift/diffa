@@ -127,7 +127,7 @@ class JooqUserPreferencesStore(db:DatabaseFacade, cacheProvider:CacheProvider)
       invalidCacheForDomain(space)
     }
     catch {
-      case _ => // ignore
+      case _: Throwable => // ignore
     }
 
   }

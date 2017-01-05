@@ -271,7 +271,7 @@ case class PairActor(pair:DomainPairDef,
         diagnostics.logPairEvent(Some(activeScan.id), pairRef, DiagnosticLevel.INFO, "Calculating differences")
         replayCorrelationStore(differencesManager, writer, store, pairRef, us, ds, TriggeredByScan)
       } catch {
-        case ex =>
+        case ex: Throwable =>
           logger.error(formatAlertCode(pairRef, DIFFERENCE_REPLAY_FAILURE) + " failed to apply unmatched differences to the differences manager")
           logger.error(formatAlertCode(pairRef, DIFFERENCE_REPLAY_FAILURE), ex)
       }
@@ -400,7 +400,7 @@ case class PairActor(pair:DomainPairDef,
       writer.flush()
       replayCorrelationStore(differencesManager, writer, store, pairRef, us, ds, TriggeredByBoot)
     } catch {
-      case ex => {
+      case ex: Throwable => {
         diagnostics.logPairEvent(None, pairRef, DiagnosticLevel.ERROR, "Failed to Difference Pair: " + ex.getMessage)
         logger.error(formatAlertCode(pairRef, DIFFERENCING_FAILURE), ex)
       }
