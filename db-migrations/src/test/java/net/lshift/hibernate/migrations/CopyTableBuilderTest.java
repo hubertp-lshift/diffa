@@ -21,6 +21,7 @@ import org.junit.Ignore;
 import java.sql.Connection;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static net.lshift.hibernate.migrations.HibernateHelper.mockExecutablePreparedStatement;
@@ -39,21 +40,21 @@ public class CopyTableBuilderTest {
 
     Connection conn = createStrictMock(Connection.class);
 
-    expect(conn.prepareStatement("insert into dest(foo,bar2,baz) select foo,bar,baz from src")).andReturn(mockExecutablePreparedStatementForUpdate(1));
+    String sql = "insert into dest(foo,bar2,baz) select foo,bar,baz from src";
+    expect(conn.prepareStatement(sql)).andReturn(mockExecutablePreparedStatementForUpdate(1));
     replay(conn);
 
     mb.apply(conn);
     verify(conn);
   }
 
-  @Ignore("TODO: Fails with latest Scala")
   @Test
   public void shouldCopyColumnsWithPredicate() throws Exception {
     MigrationBuilder mb = new MigrationBuilder(HibernateHelper.configuration());
 
     Iterable<String> sourceCols = Arrays.asList("foo", "bar", "baz");
     Iterable<String> destCols = Arrays.asList("foo", "bar2", "baz");
-    Map<String,String> predicates = new HashMap<String,String>();
+    Map<String,String> predicates = new LinkedHashMap<String,String>();
     predicates.put("foo", "a");
     predicates.put("bar", "b");
 
