@@ -165,6 +165,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>net.lshift.diffa</groupId>
       <artifactId>diffa-participants</artifactId>
       <version>${project.version}</version>
@@ -407,9 +412,122 @@
                 <version>${jetty.version}</version>
               </dependency>
               <dependency>
+                <groupId>com.jolbox</groupId>
+                <artifactId>bonecp</artifactId>
+                <version>${bonecp.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>net.lshift.javamail</groupId>
+                <artifactId>javamail-file-transport</artifactId>
+                <version>${javamail.file.transport.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+              </dependency>
+              <dependency>
                 <groupId>org.hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
                 <version>${hsqldb.version}</version>
+              </dependency>
+            </dependencies>
+            <configuration>
+              <useTestClasspath>true</useTestClasspath>
+              <systemProperties>
+                <systemProperty>
+                  <name>JETTY_NO_SHUTDOWN_HOOK</name>
+                  <value>true</value>
+                </systemProperty>
+                <systemProperty>
+                  <name>basedir</name>
+                  <value>${basedir}</value>
+                </systemProperty>
+                <systemProperty>
+                  <name>diffa.maildir</name>
+                  <value>${basedir}/target/messages</value>
+                </systemProperty>
+                <systemProperty>
+                  <name>logback.configurationFile</name>
+                  <value>${basedir}/src/test/resources/logback-test.xml</value>
+                </systemProperty>
+                <systemProperty>
+                  <name>diffa.jooq.dialect</name>
+                  <value>HSQLDB</value>
+                </systemProperty>
+              </systemProperties>
+              <scanIntervalSeconds>600</scanIntervalSeconds>
+              <stopKey>foo</stopKey>
+              <stopPort>19094</stopPort>
+              <jettyConfig>${basedir}/src/test/conf/jetty.xml</jettyConfig>
+              <webAppXml>${basedir}/src/test/conf/jetty-env.xml</webAppXml>
+              <webAppConfig>
+                <contextPath>/diffa-agent</contextPath>
+              </webAppConfig>
+            </configuration>
+            <executions>
+              <execution>
+                <id>start-jetty</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>start</goal>
+                </goals>
+                <configuration>
+                  <scanIntervalSeconds>0</scanIntervalSeconds>
+                  <daemon>true</daemon>
+                </configuration>
+              </execution>
+              <execution>
+                <id>stop-jetty</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>stop</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>mysql</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <version>${jetty.version}</version>
+            <dependencies>
+              <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-io</artifactId>
+                <version>${jetty.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-servlets</artifactId>
+                <version>${jetty.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-security</artifactId>
+                <version>${jetty.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-http</artifactId>
+                <version>${jetty.version}</version>
               </dependency>
               <dependency>
                 <groupId>com.jolbox</groupId>
@@ -436,6 +554,11 @@
                 <artifactId>commons-io</artifactId>
                 <version>${commons.io.version}</version>
               </dependency>
+              <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+              </dependency>
             </dependencies>
             <configuration>
               <useTestClasspath>true</useTestClasspath>
@@ -455,6 +578,10 @@
                 <systemProperty>
                   <name>logback.configurationFile</name>
                   <value>${basedir}/src/test/resources/logback-test.xml</value>
+                </systemProperty>
+                <systemProperty>
+                  <name>diffa.jooq.dialect</name>
+                  <value>MYSQL</value>
                 </systemProperty>
               </systemProperties>
               <scanIntervalSeconds>600</scanIntervalSeconds>

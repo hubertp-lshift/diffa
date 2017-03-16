@@ -40,6 +40,7 @@
     <hibernate.version>3.6.10.Final</hibernate.version>
     <!-- Downgraded to 2.2.8 because of annoying NPE in HSQL 2.2.9 :-( -->
     <hsqldb.version>2.2.8</hsqldb.version>
+    <mysql.version>5.1.18</mysql.version>
     <postgresql.version>9.1-901.jdbc4</postgresql.version>
     <bonecp.version>0.7.1.RELEASE</bonecp.version>
     <jetty.version>9.3.16.v20170120</jetty.version>
@@ -525,6 +526,11 @@
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
       <version>${hsqldb.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.version}</version>
     </dependency>
     <dependency>
       <groupId>postgresql</groupId>

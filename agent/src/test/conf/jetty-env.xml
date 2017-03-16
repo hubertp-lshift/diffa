@@ -25,25 +25,25 @@
       <New class="com.jolbox.bonecp.BoneCPDataSource">
         <Arg>
           <New class="com.jolbox.bonecp.BoneCPConfig">
-            <Set name="jdbcUrl">jdbc:hsqldb:target/webapp-data/diffa-data</Set>
+            <Set name="jdbcUrl"><SystemProperty name="diffa.jdbc.url" default="jdbc:hsqldb:target/webapp-data"/>/<SystemProperty name="diffa.jdbc.dbname" default="diffa-data"/></Set>
           </New>
         </Arg>
-        <Set name="username">sa</Set>
-        <Set name="password"></Set>
-        <Set name="driverClass">org.hsqldb.jdbc.JDBCDriver</Set>
+        <Set name="username"><SystemProperty name="diffa.jdbc.username" default="sa"/></Set>
+        <Set name="password"><SystemProperty name="diffa.jdbc.password" default=""/></Set>
+        <Set name="driverClass"><SystemProperty name="diffa.jdbc.driver" default="org.hsqldb.jdbc.JDBCDriver"/></Set>
       </New>
     </Arg>
   </New>
   <New class="org.eclipse.jetty.plus.jndi.EnvEntry">
     <Arg></Arg>
     <Arg>diffaHibernateDialect</Arg>
-    <Arg type="java.lang.String">org.hibernate.dialect.HSQLDialect</Arg>
+    <Arg type="java.lang.String"><SystemProperty name="diffa.hibernate.dialect" default="org.hibernate.dialect.HSQLDialect"/></Arg>
     <Arg type="boolean">true</Arg>
   </New>
   <New class="org.eclipse.jetty.plus.jndi.EnvEntry">
     <Arg></Arg>
     <Arg>diffaJooqDialect</Arg>
-    <Arg type="java.lang.String">HSQLDB</Arg>
+    <Arg type="java.lang.String"><SystemProperty name="diffa.jooq.dialect" default="HSQLDB"/></Arg>
     <Arg type="boolean">true</Arg>
   </New>
   <New id="mail" class="org.eclipse.jetty.plus.jndi.Resource">

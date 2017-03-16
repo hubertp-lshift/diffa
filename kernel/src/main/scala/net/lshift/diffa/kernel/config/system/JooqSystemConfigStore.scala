@@ -457,7 +457,11 @@ class JooqSystemConfigStore(jooq:JooqDatabaseFacade,
       UNIQUE_CATEGORY_NAMES,
       ENDPOINT_VIEWS)
 
-    dependentTables foreach (deleteRecordsInSpace(t, id, _).execute())
+    // Just retrieve the name of the column for the first view,
+    // it's consistent among all of them.
+    val fieldName = PREFIX_CATEGORY_VIEWS.ENDPOINT.getName
+
+    dependentTables foreach (deleteRecordsInSpace(t, id, _, fieldName).execute())
 
     t.delete(PAIR_REPORTS).where(PAIR_REPORTS.SPACE.equal(id)).execute()
     t.delete(REPAIR_ACTIONS).where(REPAIR_ACTIONS.SPACE.equal(id)).execute()

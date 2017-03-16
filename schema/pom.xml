@@ -84,7 +84,6 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.18</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -193,7 +192,7 @@
                 <diffa.jooq.dialect>MYSQL</diffa.jooq.dialect>
                 <diffa.jdbc.dbname>${diffa.jdbc.dbname}</diffa.jdbc.dbname>
                 <diffa.jdbc.sys.url>${diffa.jdbc.sys.url}</diffa.jdbc.sys.url>
-                <diffa.jdbc.url>${diffa.jdbc.url}</diffa.jdbc.url>
+                <diffa.jdbc.url>${diffa.jdbc.url}/${diffa.jdbc.dbname}</diffa.jdbc.url>
                 <diffa.jdbc.driver>${diffa.jdbc.driver}</diffa.jdbc.driver>
                 <diffa.jdbc.username>${diffa.jdbc.username}</diffa.jdbc.username>
                 <diffa.jdbc.password>${diffa.jdbc.password}</diffa.jdbc.password>

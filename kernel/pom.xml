@@ -194,6 +194,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.jolbox</groupId>
       <artifactId>bonecp</artifactId>
       <version>${bonecp.version}</version>
@@ -393,7 +398,7 @@
               <diffa.jooq.dialect>MYSQL</diffa.jooq.dialect>
               <diffa.jdbc.dbname>${diffa.jdbc.dbname}</diffa.jdbc.dbname>
               <diffa.jdbc.sys.url>${diffa.jdbc.sys.url}</diffa.jdbc.sys.url>
-              <diffa.jdbc.url>${diffa.jdbc.url}</diffa.jdbc.url>
+              <diffa.jdbc.url>${diffa.jdbc.url}/${diffa.jdbc.dbname}</diffa.jdbc.url>
               <diffa.jdbc.driver>${diffa.jdbc.driver}</diffa.jdbc.driver>
               <diffa.jdbc.username>${diffa.jdbc.username}</diffa.jdbc.username>
               <diffa.jdbc.password>${diffa.jdbc.password}</diffa.jdbc.password>

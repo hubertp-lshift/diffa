@@ -84,6 +84,7 @@
       <includes>
         <include>com.jolbox:bonecp</include>
         <include>org.hsqldb:hsqldb</include>
+        <include>mysql:mysql-connector-java</include>
         <include>javax.mail:mail</include>
         <include>ch.qos.logback:logback-classic</include>
         <include>ch.qos.logback:logback-core</include>

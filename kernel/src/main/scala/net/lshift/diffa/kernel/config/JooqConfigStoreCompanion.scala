@@ -481,8 +481,8 @@ object JooqConfigStoreCompanion {
       execute()
   }
 
-  def deleteRecordsInSpace[R <: Record](t: Factory, space: Long, table: Table[R]) = {
-    t.delete(table).where(table.getField("ENDPOINT").in(
+  def deleteRecordsInSpace[R <: Record](t: Factory, space: Long, table: Table[R], endpointColumn: String) = {
+    t.delete(table).where(table.getField(endpointColumn).in(
       t.select(ENDPOINTS.ID).
         from(ENDPOINTS).
         where(ENDPOINTS.SPACE.equal(space))))
@@ -738,8 +738,8 @@ object JooqConfigStoreCompanion {
       execute()
   }
 
-  def deleteGenericCategoriesForEndpoint[R <: Record](t: Factory, space: Long, endpoint: String, table: Table[R]) =
-    t.delete(table).where(table.getField("ENDPOINT").in(selectEndpointIdByName(t, endpoint, space)))
+  def deleteGenericCategoriesForEndpoint[R <: Record](t: Factory, space: Long, endpoint: String, table: Table[R], endpointColumn: String) =
+    t.delete(table).where(table.getField(endpointColumn).in(selectEndpointIdByName(t, endpoint, space)))
 
   def deleteCategories(t:Factory, space:Long, endpoint:String) = {
     // The order of these tables is important. Incorrect ordering will result in foreign key constraint violation.
@@ -754,7 +754,11 @@ object JooqConfigStoreCompanion {
       UNIQUE_CATEGORY_VIEW_NAMES,
       UNIQUE_CATEGORY_NAMES)
 
-    categoryTables foreach (deleteGenericCategoriesForEndpoint(t, space, endpoint, _).execute())
+    // It is sufficient to retrieve only the columne name of the first view
+    // from the schema. The names are consistent among the generated views.
+    val endpointFieldName = PREFIX_CATEGORY_VIEWS.ENDPOINT.getName
+
+    categoryTables foreach (deleteGenericCategoriesForEndpoint(t, space, endpoint, _, endpointFieldName).execute())
   }
 
   def ancestorIdTree(t:Factory, space:Long):Seq[Long] = {
