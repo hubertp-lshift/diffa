@@ -189,16 +189,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>com.jolbox</groupId>
       <artifactId>bonecp</artifactId>
       <version>${bonecp.version}</version>
@@ -319,6 +309,13 @@
     </profile>
   <profile>
     <id>hsqldb</id>
+    <dependencies>
+      <dependency>
+        <groupId>org.hsqldb</groupId>
+        <artifactId>hsqldb</artifactId>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
     <build>
       <plugins>
         <plugin>
